@@ -10,6 +10,7 @@ if(!file.exists("activity.csv"))
 
 data <- read.csv("activity.csv")
 data_no_na <- data[!is.na(data$steps),]
+data_na <- data[is.na(data$steps),]
 
 # 2. Histogram of the total number of steps taken each day
 day_data <- aggregate(steps ~ date, data = data_no_na, FUN = sum)
@@ -32,18 +33,21 @@ ggplot(interval_data, aes(x = interval, y = steps, group = 1, col = "red")) +
 interval_data[which.max(interval_data$steps),1]
 
 # 6. Code to describe and show a strategy for imputing missing data
-data_na <- data[is.na(data$steps),]
 length(data_na[,1])
 impute_data_na <- merge(data_na, interval_data, by = "interval")
 impute_data_na <- impute_data_na[,c(4,3,1)]
 names(impute_data_na) <- c("steps", "date", "interval")
 imputed_data <- rbind(data_no_na, impute_data_na)
-imputed_day_data <- aggregate(steps ~ date, data = imputed_data, FUN = sum)
 
 # 7. Histogram of the total number of steps taken each day after missing values are imputed
+imputed_day_data <- aggregate(steps ~ date, data = imputed_data, FUN = sum)
 hist(imputed_day_data$steps, breaks = 5, xlab = "Number of Steps", 
      main = "Daily Steps Histogram w/ Imputed Data", col = "black")
 hist(day_data$steps, breaks = 5, xlab = "Number of Steps", 
      main = "Daily Steps Histogram w/ Imputed Data", col = "grey", add = TRUE)
 legend("topright", c("Imputed Data", "Real Data"), fill = c("black", "grey"))
+
+as.integer(mean(imputed_day_data$steps))
+as.integer(median(imputed_day_data$steps))
+
 # 8. Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
