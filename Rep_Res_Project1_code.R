@@ -9,6 +9,7 @@ if(!file.exists("activity.csv"))
     unzip(file)
 
 data <- read.csv("activity.csv")
+data$date <- as.Date(data$date)
 data_no_na <- data[!is.na(data$steps),]
 data_na <- data[is.na(data$steps),]
 
@@ -51,3 +52,15 @@ as.integer(mean(imputed_day_data$steps))
 as.integer(median(imputed_day_data$steps))
 
 # 8. Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
+weekend <- c('Saturday', 'Sunday')
+imputed_data$day <- weekdays(imputed_data$date)
+imputed_data$day_group <- ifelse(imputed_data$day %in% weekend, 'Weekend', 'Weekday')
+day_interval_data <- aggregate(steps ~ interval + day_group, data = imputed_data, FUN = mean)
+ggplot(day_interval_data, aes(x = interval, y = steps, col = day_group)) +
+    geom_line() + 
+    facet_grid(day_group ~ .) +
+    xlab("5 Minute Interval") + 
+    ylab("Average Steps Taken in Interval") + 
+    ggtitle("Average Daily Step Activity by Day Type") + 
+    theme(plot.title = element_text(hjust = 0.5), legend.position = "none")
+    
