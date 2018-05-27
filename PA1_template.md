@@ -4,6 +4,7 @@ output:
   html_document:
     keep_md: true
 ---
+# Reproducible Research: Peer Assessment 1
 #### Roger Toussaint
 ## Introduction
 
@@ -35,6 +36,7 @@ data$date <- as.Date(data$date)
 data_no_na <- data[!is.na(data$steps),]
 data_na <- data[is.na(data$steps),]
 ```
+
 ## What is mean total number of steps taken per day?
 We will first look a the distribution of daily step totals with a histogram.
 
@@ -63,6 +65,7 @@ as.integer(median(day_data$steps))
 ```
 ## [1] 10765
 ```
+
 ## What is the average daily activity pattern?
 Next, we will look at the daily average step activity. The following graph displays the average number of steps taken in each 5 minute interval of the day.
 
@@ -138,6 +141,7 @@ as.integer(median(imputed_day_data$steps))
 ## [1] 10766
 ```
 These values are very similar to the mean and median for the non missing data as the imputed values are just averages, and therefore do not shift the center of the distribution.
+
 ## Are there differences in activity patterns between weekdays and weekends?
 Next, we will compare the step patterns of weekdays versus weekends. The following graph shows a similar time series to before, but this time separating out weekdays and weekends.
 
