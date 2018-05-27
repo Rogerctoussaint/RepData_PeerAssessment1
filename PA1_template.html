@@ -139,7 +139,7 @@ $(document).ready(function () {
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
 <p>The data were loaded into R with the following code. This checks if the data have already been downloaded from the url, as well as if the file has been unzipped yet. Then, it reads in the csv using read.csv.</p>
-<pre class="r"><code>file &lt;- &quot;fitbit_activity.zip&quot;
+<pre class="r"><code>file &lt;- &quot;activity.zip&quot;
 if(!file.exists(file))
     download.file(&quot;https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip&quot;, destfile = file)
 if(!file.exists(&quot;activity.csv&quot;))
