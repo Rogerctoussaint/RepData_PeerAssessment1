@@ -20,7 +20,7 @@ The variables included in this dataset are:
 ## Loading and preprocessing the data
 The data were loaded into R with the following code. This checks if the data have already been downloaded from the url, as well as if the file has been unzipped yet. Then, it reads in the csv using read.csv.
 ```{r} 
-file <- "fitbit_activity.zip"
+file <- "activity.zip"
 if(!file.exists(file))
     download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", destfile = file)
 if(!file.exists("activity.csv"))
